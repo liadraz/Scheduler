@@ -1,0 +1,11 @@
+# Ignore all
+*
+!.gitignore
+
+# Do not ignore cpp and hpp files
+!/**/
+!*.cpp
+!*.hpp
+!*.c
+!*.h
+!makefile*
