@@ -1,11 +1,31 @@
-# Scheduler
+# Simple Scheduler
+--------------------------------------------------------------------------------
 
-Description :
+AUTHOR      Liad Raz
+LANGUAGES   C++ 11
+
+>>> Description
     A program that executes several operations (tasks) at predetermined time intervals.
+        - That the application does
+        - Why you used the technologies I used
+        - Challenges and Features I wish to implement in the future.
+        C++, Interface Design, OOP, Design patterns, MultyThreaded environment, 
+        High-Quality Code.
 
 
+>>> How To Install and Run the Project
+        make scheduler
 
-GitHub, Commits Style Guide :
+>>> How To Use The Project
+
+
+>>> License
+
+
+>>> Tests / How To Run Them
+
+
+>>> GitHub, Commits Style Guide
 
         <type>[optional scope]: <description>
 
@@ -20,3 +40,6 @@ GitHub, Commits Style Guide :
     test: Everything related to testing
     docs: Everything related to documentation
     chore: Regular code maintenance.[ You can also use emojis to represent commit types]
+
+>>> Connect with me
+    
