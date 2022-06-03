@@ -9,9 +9,9 @@
 // 
 //----------------------------------------------------------------------------//
 
+#include <iostream>     // ostream
 #include <ctime>        // time
-#include <unistd.h>       // getpid
-
+#include <unistd.h>     // getpid
 #include "uid.hpp"
 
 
@@ -21,12 +21,11 @@ std::atomic<size_t> Uid::s_m_counter(0);
 //
 // Special Members Constructors
 //----------------------------------------------------------------------------//
-Uid::Uid() : 
+Uid::Uid() :
+    m_uid(s_m_counter.fetch_add(1)),
     m_time(time(NULL)),
     m_pid(getpid())
-{
-    InitCounter();
-}
+{}
 
 
 // Main Functionality
@@ -50,9 +49,11 @@ bool Uid::IsBad(const Uid& uid_) const
 }
 
 
-// Utilities
+// I/O
 //----------------------------------------------------------------------------//
-void Uid::InitCounter()
+std::ostream& operator<<(std::ostream& os_, const Uid& uid_)
 {
-    s_m_counter.fetch_add(1, std::memory_order_relaxed);
+    return os_ << "(UID " << uid_.m_uid << ", Time " << uid_.m_time << ", PID " << uid_.m_pid << ")";
 }
+
+// 
