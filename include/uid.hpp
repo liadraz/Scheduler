@@ -12,16 +12,22 @@
 #ifndef UID_HPP
 #define UID_HPP
 
-#include <cstddef>		// size_t
-#include <ctime>		// time_t, pid_t
+#include <iostream>     // ostream, size_t, time_t, pid_t
 #include <atomic>       // std::atomic
 
 
+
+class Uid;
+
+//
+// Non-member Functions
+std::ostream& operator<<(std::ostream& os_, const Uid& uid_);
 
 //----------------------------------------------------------------------------//
 //	Uid Declaration
 //  NOTE    Class is Thread safe.
 //----------------------------------------------------------------------------//
+
 class Uid
 {
 public:
@@ -39,14 +45,15 @@ public:
     bool IsBad(const Uid& uid_) const;
 
 private:
+    size_t m_uid;
     time_t m_time;
     pid_t m_pid;
 
     static std::atomic<size_t> s_m_counter;
 
-    //
-    // Utilities
-    void InitCounter();
+    // I/O overload
+    // format (time, pid, counter)
+    friend std::ostream& operator<<(std::ostream& os_, const Uid& uid_);
 };
 
 
