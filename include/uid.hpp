@@ -12,8 +12,10 @@
 #ifndef UID_HPP
 #define UID_HPP
 
-#include <cstddef>			// size_t
-#include <ctime>			// time_t, pid_t
+#include <cstddef>		// size_t
+#include <ctime>		// time_t, pid_t
+#include <atomic>       // std::atomic
+
 
 
 //----------------------------------------------------------------------------//
@@ -26,7 +28,7 @@ public:
     //
 	// Special Members Constructors
     explicit Uid();
-    ~Uid();
+    ~Uid() = default;
     // Class cannot be Copied
     Uid(const Uid& other_) = delete;
     Uid& operator=(const Uid& other_) = delete;
@@ -34,13 +36,17 @@ public:
     //
     // Main Functionality
     bool IsSame(const Uid& first_, const Uid& second_) const;
-    bool IsBad(const Uid& isBad_) const;
+    bool IsBad(const Uid& uid_) const;
 
 private:
-    size_t m_counter;
     time_t m_time;
     pid_t m_pid;
 
+    static std::atomic<size_t> s_m_counter;
+
+    //
+    // Utilities
+    void InitCounter();
 };
 
 
