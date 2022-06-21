@@ -1,9 +1,9 @@
 //----------------------------------------------------------------------------//
-//						<< Scheduler Project >>
+//                  << Scheduler Project >>
 //----------------------------------------------------------------------------//
 //
 //	DESCRIPTION		Scheduler Interface
-//					Executes user costumed tasks in a provided intervals
+//                  Executes user costumed tasks in a provided intervals
 //	AUTHOR 			Liad Raz
 //	DATE			02 Jun 2022
 // 
