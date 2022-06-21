@@ -7,11 +7,13 @@
 //	AUTHOR 		    Liad Raz
 //	DATE			19 Apr 2022
 //
+//  CpyCompile      gdp11 -I ./include/ tests/tasks_creator_test.cpp
 //----------------------------------------------------------------------------//
 
 #include <iostream>			// std::cout
 #include <memory>           // std::shared_ptr
 #include <string>			// std::string
+#include <vector>			// std::vector
 
 #include "tasks_creator.hpp"
 
@@ -34,6 +36,7 @@ public:
 };
 
 IAnimal::~IAnimal() = default;
+
 
 //
 class Dog : public IAnimal
@@ -63,6 +66,7 @@ private:
     int m_arg;
 };
 
+
 Dog::~Dog() {}
 
 // Definitions
@@ -79,7 +83,8 @@ public:
     {
         std::cout << "Cat ctor" << std::endl;
     }
-    ~Cat();
+
+    ~Cat() noexcept override;
 
     void PrintSound() override;
 
@@ -103,26 +108,33 @@ void Cat::PrintSound()
 Cat::~Cat() {}
 
 
+
 int main()
 {
     std::cout << "Tests Factory Method Design Pattern" << std::endl;
 
-    Creator<IAnimal, IAnimal::Key, int>* fact = new Creator<IAnimal, IAnimal::Key, int>();
-    std::cout << "Address of creator class " << fact << std::endl;
+    Creator<IAnimal, IAnimal::Key, int>* creator = new Creator<IAnimal, IAnimal::Key, int>();
+    std::cout << "Address of creator class " << creator << std::endl;
 
     Creator<IAnimal, IAnimal::Key, int>::Status status = Creator<IAnimal, IAnimal::Key, int>::ADDED;
 
-    status = fact->InsertTask(IAnimal::DOG, Dog::Create);
+    // Add The concrete Tasks
+    status = creator->ProvideTask(IAnimal::DOG, Dog::Create);
     std::cout << status << std::endl;
 
-    status = fact->InsertTask(IAnimal::CAT, Cat::Create);
+    status = creator->ProvideTask(IAnimal::CAT, Cat::Create);
     std::cout << status << std::endl;
 
-    std::shared_ptr<IAnimal> animal = fact->CreateTask(IAnimal::CAT, 2);
-    std::shared_ptr<IAnimal> animal2 = fact->CreateTask(IAnimal::DOG, 2);
-
+    
+    // Call to Create a task object
+    std::shared_ptr<IAnimal> animal = creator->CreateTaskClass(IAnimal::CAT, 2);
     animal->PrintSound();
+
+    std::shared_ptr<IAnimal> animal2 = creator->CreateTaskClass(IAnimal::DOG, 2);
     animal2->PrintSound();
+
+
+    std::vector<IAnimal::Key> list = creator->GetListOfTasks();
 
     return 0;
 }
