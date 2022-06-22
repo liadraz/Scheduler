@@ -17,15 +17,17 @@
 #include <memory>               // std::shared_ptr
 #include <functional>           // std::function
 #include <unordered_map>        // std::unordered_map
-#include <string>               // std::string
 #include <vector>               // std::vector
 #include <iterator>             // std::iterator
 
 //----------------------------------------------------------------------------//
 //	Creator Deceleration
-//      The Creator class has two methods :
-//      1. Provide, The user can add any task/function he wants.
-//      2. Create Class, returns a new Task object.
+//      The Creator class has two main methods :
+//      1. Provide, The user can add any task/class he desires.
+//      2. Create Class, returns a Task object instance.
+//
+//      *** Get more information how to implement tasks in README.md file 
+//          under Creator Class.
 //----------------------------------------------------------------------------//
 template <typename ITask, typename Key, typename Args>
 class Creator
@@ -51,16 +53,15 @@ public:
     // Main Functionality
 
     // DESCRIPTION  Fill the Creator class with custom Task Classes.
-    //              The user responsible for writing the task interface 
+    //              Is the user responsibilty for writing the task interface 
     //              and the concrete class.
     // RETURN       UPDATED when key exists; ADDED when key was added. 
-    Status ProvideTask(const Key& key_, CreateTaskInst_ty createFunc_);
+    Status ProvideTaskType(const Key& key_, CreateTaskInst_ty createFunc_);
 
     // DESCRIPTION  Creates an instant of a desired Task, calling it by its Key.
     //              (The Factory method)
     // IMPORTANT    Undefined behaviour when passing a key which does not exist.
-    std::shared_ptr<ITask> CreateTaskClass(const Key& key_, Args args_);
-    
+    std::shared_ptr<ITask> CreateTaskInst(const Key& key_, Args args_);
 
     //
     // Extra Features
@@ -81,7 +82,7 @@ private:
 //	Creator Definitions
 //----------------------------------------------------------------------------//
 template <typename ITask, typename Key, typename Args>
-typename Creator<ITask, Key, Args>::Status Creator<ITask, Key, Args>::ProvideTask(const Key& key_, CreateTaskInst_ty createFunc_)
+typename Creator<ITask, Key, Args>::Status Creator<ITask, Key, Args>::ProvideTaskType(const Key& key_, CreateTaskInst_ty createFunc_)
 {
     Status status = Status::ADDED;
 
@@ -97,7 +98,7 @@ typename Creator<ITask, Key, Args>::Status Creator<ITask, Key, Args>::ProvideTas
 
 
 template <typename ITask, typename Key, typename Args>
-std::shared_ptr<ITask> Creator<ITask, Key, Args>::CreateTaskClass(const Key& key_, Args args_)
+std::shared_ptr<ITask> Creator<ITask, Key, Args>::CreateTaskInst(const Key& key_, Args args_)
 {
     try
     {
