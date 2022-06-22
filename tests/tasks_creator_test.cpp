@@ -19,7 +19,7 @@
 
 
 //----------------------------------------------------------------------------//
-// << Interface >>
+// << Base Task >>
 class IAnimal
 {
 public:
@@ -38,7 +38,7 @@ public:
 IAnimal::~IAnimal() = default;
 
 
-//
+// << Concrete Task 1 >>
 class Dog : public IAnimal
 {
 public:
@@ -55,7 +55,7 @@ public:
 
     void PrintSound() override;
 
-    // Creation Function
+    // The Creation Function, which will be passes to the Creator Class
     static std::shared_ptr<Dog> Create(int param_)
     {
         (void)(param_);
@@ -76,6 +76,7 @@ void Dog::PrintSound()
 }
 
 //----------------------------------------------------------------------------//
+// << Concrete Task 2 >>
 class Cat : public IAnimal
 {
 public:
@@ -88,10 +89,10 @@ public:
 
     void PrintSound() override;
 
-    // Creation Function
+    // The Creation Function, which will be passes to the Creator Class
     static std::shared_ptr<Cat> Create(int param_)
     {
-        (void)(param_);
+        std::cout << param_ << std::endl;
         return std::shared_ptr<Cat>(new Cat());
     }
 
@@ -118,19 +119,19 @@ int main()
 
     Creator<IAnimal, IAnimal::Key, int>::Status status = Creator<IAnimal, IAnimal::Key, int>::ADDED;
 
-    // Add The concrete Tasks
-    status = creator->ProvideTask(IAnimal::DOG, Dog::Create);
+    // Add concrete tasks
+    status = creator->ProvideTaskType(IAnimal::DOG, Dog::Create);
     std::cout << status << std::endl;
 
-    status = creator->ProvideTask(IAnimal::CAT, Cat::Create);
+    status = creator->ProvideTaskType(IAnimal::CAT, Cat::Create);
     std::cout << status << std::endl;
 
     
     // Call to Create a task object
-    std::shared_ptr<IAnimal> animal = creator->CreateTaskClass(IAnimal::CAT, 2);
+    std::shared_ptr<IAnimal> animal = creator->CreateTaskInst(IAnimal::CAT, 2);
     animal->PrintSound();
 
-    std::shared_ptr<IAnimal> animal2 = creator->CreateTaskClass(IAnimal::DOG, 2);
+    std::shared_ptr<IAnimal> animal2 = creator->CreateTaskInst(IAnimal::DOG, 2);
     animal2->PrintSound();
 
 
