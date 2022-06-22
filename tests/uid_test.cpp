@@ -5,7 +5,8 @@
 //	DESCRIPTION		UID Tests
 //	AUTHOR 			Liad Raz
 //	DATE			03 Jun 2022
-// 
+//
+//  CpyCompile      gdp11 -I ./include/ ./src/uid.cpp tests/uid_test.cpp
 //----------------------------------------------------------------------------//
 
 #include <iostream>			// std::cout
