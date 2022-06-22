@@ -37,7 +37,7 @@ public:
     
     //
 	// Special Members Constructors
-    explicit ITask(std::shared_ptr<Args> args_, time_t interval = 1);
+    explicit ITask(std::shared_ptr<Args> args_);
     virtual ~ITask() = 0;
 
     // NOTE cctor and copy= are shallowed copied
@@ -73,12 +73,12 @@ private:
 //----------------------------------------------------------------------------//
 
 template <typename Args>
-ITask<Args>::ITask(std::shared_ptr<Args> args_, time_t interval_ = 1):
+ITask<Args>::ITask(std::shared_ptr<Args> args_):
     m_args(args_),
-    m_interval(interval_),
-    m_nextRun(0),
+    m_interval(1),
+    m_nextRun(0)
 {
-    m_id = Uid;
+    m_id = Uid();
 }
 
 template <typename Args>
