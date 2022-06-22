@@ -15,9 +15,10 @@
 #include <queue>  		// std::priority_queue
 #include <ctime>  		// time_t
 
-#include "tasks_creator.hpp"  	// Creator
-#include "itask.hpp"  	        // ITask
-#include "uid.hpp"  	        // Uid
+#include "tasks_creator.hpp"  	    // Creator
+#include "uid.hpp"  	            // Uid
+#include "../tasks/itask.hpp"       // ITask
+#include "../tasks/print_msg.hpp"   // PrintMsg
 
 
 //----------------------------------------------------------------------------//
@@ -29,7 +30,7 @@ template <
 	typename Key,
 	typename Args
 	>
-class Scheduler:
+class Scheduler
 {
 public:
 	//
@@ -49,7 +50,7 @@ public:
     // T is a pointer to a function
     // Args are the parameters the user can pass to T function
     // interval parameter determines its priority value
-    Uid ScheduleTask(Key taskName_, Args param_, time_t interval_);
+    Uid ScheduleTask(Key taskName_, Args ags_, time_t interval_);
     // void RemoveTask(Uid toRemove_);
 
     //
@@ -73,9 +74,9 @@ public:
     
 
 private:
-    std::priority_queue<Task> m_tasks;
+    std::priority_queue<ITask<Args>> m_tasks;
     time_t m_initialTime;
-    Creator* m_creator;
+    Creator<ITask<Args>, Key, Args>* m_creator;
 };
 
 
@@ -84,29 +85,33 @@ private:
 //	Scheduler Definitions
 //----------------------------------------------------------------------------//
 template <typename Task, typename Key, typename Args>
-Scheduler<Task, Key, Args>::Scheduler(): m_initialTime(0)
+Scheduler<Task, Key, Args>::Scheduler(): 
+    m_initialTime(0)
 {
     // Create and Initiate the creator. Adding basic tasks to the scheduler
-    m_creator = new Creator<ITask, ITask::TaskName, Args>();
+    m_creator = new Creator<ITask<int>, ITask<int>::TaskName, int>();
 
     // Add Basic Tasks functionalities
-    m_creator->ProvideTaskType(ITask::PRINT_MSG, PrintMsg::CreateInst);
+    m_creator->ProvideTaskType(ITask<int>::PRINT_MSG, PrintMsg<int>::CreateInst);
 }
 
 template <typename Task, typename Key, typename Args>
 Scheduler<Task, Key, Args>::~Scheduler()
 {
     // Clear all tasks from m_tasks pqueue
-    Clear();
+    // Clear();
 
     delete m_creator;
 }
 
 
 template <typename Task, typename Key, typename Args>
-Uid Scheduler<Task, Key, Args>::ScheduleTask(Key taskName_, Args param_, time_t interval_)
+Uid Scheduler<Task, Key, Args>::ScheduleTask(Key taskName_, Args args_, time_t interval_)
 {
-    // m_creator->CreateTaskInst
+    Task* task = m_creator->CreateTaskInst(taskName_, args_);
+    
+    
+    return task->m_uid;
 }
 
 
