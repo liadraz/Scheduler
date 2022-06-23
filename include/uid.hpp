@@ -35,9 +35,8 @@ public:
 	// Special Members Constructors
     explicit Uid();
     ~Uid() = default;
-    // Class cannot be Copied
-    Uid(const Uid& other_) = delete;
-    Uid& operator=(const Uid& other_) = delete;
+    Uid(const Uid& other_) = default;
+    Uid& operator=(const Uid& other_) = default;
 
     //
     // Main Functionality
