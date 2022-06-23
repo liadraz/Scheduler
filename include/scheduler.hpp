@@ -50,7 +50,7 @@ public:
     // T is a pointer to a function
     // Args are the parameters the user can pass to T function
     // interval parameter determines its priority value
-    Uid ScheduleTask(Key taskName_, Args ags_, time_t interval_);
+    // Uid ScheduleTask(Key taskName_, Args ags_, time_t interval_);
     // void RemoveTask(Uid toRemove_);
 
     //
@@ -74,9 +74,9 @@ public:
     
 
 private:
-    std::priority_queue<ITask<Args>> m_tasks;
+    std::priority_queue<ITask> m_tasks;
     time_t m_initialTime;
-    Creator<ITask<Args>, Key, Args>* m_creator;
+    Creator<ITask, Key, Args>* m_creator;
 };
 
 
@@ -89,10 +89,10 @@ Scheduler<Task, Key, Args>::Scheduler():
     m_initialTime(0)
 {
     // Create and Initiate the creator. Adding basic tasks to the scheduler
-    m_creator = new Creator<ITask<int>, ITask<int>::TaskName, int>();
+    m_creator = new Creator<ITask, ITask::TaskName, Param>();
 
     // Add Basic Tasks functionalities
-    m_creator->ProvideTaskType(ITask<int>::PRINT_MSG, PrintMsg<int>::CreateInst);
+    m_creator->ProvideTaskType(ITask::PRINT_MSG, PrintMsg::CreateInst);
 }
 
 template <typename Task, typename Key, typename Args>
@@ -105,14 +105,14 @@ Scheduler<Task, Key, Args>::~Scheduler()
 }
 
 
-template <typename Task, typename Key, typename Args>
-Uid Scheduler<Task, Key, Args>::ScheduleTask(Key taskName_, Args args_, time_t interval_)
-{
-    Task* task = m_creator->CreateTaskInst(taskName_, args_);
+// template <typename Task, typename Key, typename Args>
+// Uid Scheduler<Task, Key, Args>::ScheduleTask(Key taskName_, Args args_, time_t interval_)
+// {
+//     // Task* task = m_creator->CreateTaskInst(taskName_, args_);
     
     
-    return task->m_uid;
-}
+//     // return task->m_uid;
+// }
 
 
 
