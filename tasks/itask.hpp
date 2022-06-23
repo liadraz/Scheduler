@@ -27,7 +27,13 @@
 //  ITask Deceleration 
 //      Is created by a call from the TasksCreator class.
 //----------------------------------------------------------------------------//
-template <typename Args>
+
+struct Param
+{
+    int m_a;
+};
+
+
 class ITask
 {
 public:
@@ -37,7 +43,7 @@ public:
     
     //
 	// Special Members Constructors
-    explicit ITask(std::shared_ptr<Args> args_);
+    explicit ITask(const Param& param_);
     virtual ~ITask() = 0;
 
     // NOTE cctor and copy= are shallowed copied
@@ -48,7 +54,7 @@ public:
 
 
 private:
-    std::shared_ptr<Args> m_args;   // TODO: should move to protected access specifier
+    Param m_param;   // TODO: should move to protected access specifier
     time_t m_interval;
     time_t m_nextRun;
     Uid m_id;
@@ -67,22 +73,6 @@ private:
 };
 
 
-
-//----------------------------------------------------------------------------//
-//	ITask Definitions
-//----------------------------------------------------------------------------//
-
-template <typename Args>
-ITask<Args>::ITask(std::shared_ptr<Args> args_):
-    m_args(args_),
-    m_interval(1),
-    m_nextRun(0)
-{
-    m_id = Uid();
-}
-
-template <typename Args>
-ITask<Args>::~ITask() = default;
 
 
 #endif // ITASK_HPP
