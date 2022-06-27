@@ -20,7 +20,7 @@
 
 // ITask is generic abstract class
 #include "../tasks/itask.hpp"       // ITask
-// Default tasks
+// Built-in scheduler tasks
 #include "../tasks/print_msg.hpp"   // PrintMsg
 
 
