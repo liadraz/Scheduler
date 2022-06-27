@@ -13,7 +13,7 @@
 #define PRINTMSG_HPP
 
 
-#include <iostream>       // std::cout, std::endl
+#include <iostream>     // std::cout, std::endl
 #include <memory>       // std::shared_ptr
 #include <ctime>        // time_t
 
@@ -22,16 +22,15 @@
 
 //----------------------------------------------------------------------------//
 //  PrintMsg Deceleration 
-//      Is created by a call from the TasksCreator class.
+//     Print a massage to stdout.
 //----------------------------------------------------------------------------//
-template <typename Args>
-class PrintMsg : public ITask<Args>
+class PrintMsg : public ITask
 {
 public:
     //
 	// Special Members Constructors
-    // NOTE     The default Ctor is blocked, in order to create 
-    //          an instance of this class only by invoking CreateTask method.
+    // NOTE     The default Ctor is blocked. 
+    //          Use CreateInst to create this class.
     ~PrintMsg() = default;
 
     PrintMsg(const PrintMsg &other_) = default;
@@ -40,41 +39,15 @@ public:
     //
     // Main Functionality
     // Create an Instance of this class
-    static std::shared_ptr<PrintMsg> CreateInst(Args args_);
+    static std::shared_ptr<PrintMsg> CreateInst(const Param& param_);
 
 private: 
     // NOTE     Default Ctor is blocked to use by the user.
-    explicit PrintMsg(Args args_);
+    explicit PrintMsg(const Param& param_);
 
     // DESCRIPTION  
     bool ExecFunc() override;
 };
 
-
-
-//----------------------------------------------------------------------------//
-//	PrintMsg Definitions
-//----------------------------------------------------------------------------//
-
-
-template <typename Args>
-PrintMsg<Args>::PrintMsg(Args args_): 
-    ITask<Args>::ITask<Args>(args_)
-{}
-
-
-template <typename Args>
-std::shared_ptr<PrintMsg<Args>> PrintMsg<Args>::CreateInst(Args args_)
-{
-    return std::shared_ptr<PrintMsg>(new PrintMsg(args_));
-}
-
-
-template <typename Args>
-bool PrintMsg<Args>::ExecFunc()
-{
-    std::cout << "Hello" << std::endl;
-    return true;
-}
 
 #endif // PRINTMSG_HPP
