@@ -12,8 +12,9 @@
 #ifndef SCHEDULER_HPP
 #define SCHEDULER_HPP
 
-#include <queue>  		// std::priority_queue
-#include <ctime>  		// time_t
+#include <memory>                   // std::shared_ptr
+#include <queue>  		            // std::priority_queue
+#include <ctime>  		            // time_t
 
 #include "tasks_creator.hpp"  	    // Creator
 #include "uid.hpp"  	            // Uid
@@ -49,10 +50,9 @@ public:
     void Stop();
 
     // DESCRIPTION  Add a task to the scheduler. 
-    // T is a pointer to a function
-    // Args are the parameters the user can pass to T function
-    // interval parameter determines its priority value
-    // Uid ScheduleTask(Key taskName_, Args ags_, time_t interval_);
+    //      Args are the parameters the user can pass to ITask function
+    //      interval parameter determines its priority value
+    Uid ScheduleTask(Key taskName_, Args args_, time_t interval_ = 1);
     // void RemoveTask(Uid toRemove_);
 
     //
@@ -98,6 +98,7 @@ Scheduler<Key, Args>::Scheduler():
     m_creator->ProvideTaskType(ITask::PRINT_MSG, PrintMsg::CreateInst);
 }
 
+
 template <typename Key, typename Args>
 Scheduler<Key, Args>::~Scheduler()
 {
@@ -108,14 +109,17 @@ Scheduler<Key, Args>::~Scheduler()
 }
 
 
-// template <typename Task, typename Key, typename Args>
-// Uid Scheduler<Task, Key, Args>::ScheduleTask(Key taskName_, Args args_, time_t interval_)
-// {
-//     // Task* task = m_creator->CreateTaskInst(taskName_, args_);
-    
-    
-//     // return task->m_uid;
-// }
+template <typename Key, typename Args>
+Uid Scheduler<Key, Args>::ScheduleTask(Key taskName_, Args args_, time_t interval_)
+{
+    // Create instant of a task
+    std::shared_ptr<ITask> task = m_creator->CreateTaskInst(taskName_, args_);
+
+    // TODO: Add task to the container
+    // m_tasks.push(task);
+
+    return task->GetID();
+}
 
 
 
