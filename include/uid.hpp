@@ -50,8 +50,8 @@ private:
 
     static std::atomic<size_t> s_m_counter;
 
-    // I/O overload
-    // format (time, pid, counter)
+    // I/O function overload
+    // stdout format => (time, pid, counter)
     friend std::ostream& operator<<(std::ostream& os_, const Uid& uid_);
 };
 
