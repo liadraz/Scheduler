@@ -29,7 +29,7 @@
 //      *** Get more information how to implement tasks in README.md file 
 //          under Creator Class.
 //----------------------------------------------------------------------------//
-template <typename ITask, typename Key, typename Args>
+template <typename T, typename Key, typename Args>
 class Creator
 {
 public:
@@ -47,7 +47,7 @@ public:
 
     // Alias for a general-purpose function.    
     // i.e syntax std::function<return(params)>;
-    using CreateTaskInst_ty = std::function<std::shared_ptr<ITask>(Args args_)>;
+    using CreateTaskInst_ty = std::function<std::shared_ptr<T>(Args args_)>;
 
     //
     // Main Functionality
@@ -61,7 +61,7 @@ public:
     // DESCRIPTION  Creates an instant of a desired Task, calling it by its Key.
     //              (The Factory method)
     // IMPORTANT    Undefined behaviour when passing a key which does not exist.
-    std::shared_ptr<ITask> CreateTaskInst(const Key& key_, Args args_);
+    std::shared_ptr<T> CreateTaskInst(const Key& key_, Args args_);
 
     //
     // Extra Features
@@ -81,8 +81,8 @@ private:
 //----------------------------------------------------------------------------//
 //	Creator Definitions
 //----------------------------------------------------------------------------//
-template <typename ITask, typename Key, typename Args>
-typename Creator<ITask, Key, Args>::Status Creator<ITask, Key, Args>::ProvideTaskType(const Key& key_, CreateTaskInst_ty createFunc_)
+template <typename T, typename Key, typename Args>
+typename Creator<T, Key, Args>::Status Creator<T, Key, Args>::ProvideTaskType(const Key& key_, CreateTaskInst_ty createFunc_)
 {
     Status status = Status::ADDED;
 
@@ -97,8 +97,8 @@ typename Creator<ITask, Key, Args>::Status Creator<ITask, Key, Args>::ProvideTas
 }
 
 
-template <typename ITask, typename Key, typename Args>
-std::shared_ptr<ITask> Creator<ITask, Key, Args>::CreateTaskInst(const Key& key_, Args args_)
+template <typename T, typename Key, typename Args>
+std::shared_ptr<T> Creator<T, Key, Args>::CreateTaskInst(const Key& key_, Args args_)
 {
     try
     {
@@ -111,8 +111,8 @@ std::shared_ptr<ITask> Creator<ITask, Key, Args>::CreateTaskInst(const Key& key_
 }
 
 
-template <typename ITask, typename Key, typename Args>
-std::vector<Key> Creator<ITask, Key, Args>::GetListOfTasks()
+template <typename T, typename Key, typename Args>
+std::vector<Key> Creator<T, Key, Args>::GetListOfTasks()
 {
     std::vector<Key> retKeys;
     retKeys.reserve(m_tasks.size());
