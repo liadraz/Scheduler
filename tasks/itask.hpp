@@ -22,24 +22,24 @@
 // Non-member Functions
 // bool operator<(const ITask& lhs_, const ITask& rhs_);
 
-//----------------------------------------------------------------------------//
-//	<< Interface >> 
-//  ITask Deceleration 
-//      Is created by a call from the TasksCreator class.
-//----------------------------------------------------------------------------//
 
 struct Param
 {
     int m_a;
 };
 
-
+//----------------------------------------------------------------------------//
+//	<< Interface >> 
+//  ITask Deceleration 
+//      Generic task which handled by the Scheduler.
+//----------------------------------------------------------------------------//
 class ITask
 {
 public:
     //
-    // Definitions
-    enum TaskName { PRINT_MSG = 0, TIME = 1 };
+    // Definitions 
+    // Basic tasks the scheduler accepts.
+    enum TaskName { PRINT_MSG = 0, TELL_TIME = 1 };
     
     //
 	// Special Members Constructors
