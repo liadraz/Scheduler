@@ -17,7 +17,10 @@
 
 #include "tasks_creator.hpp"  	    // Creator
 #include "uid.hpp"  	            // Uid
+
+// ITask is generic abstract class
 #include "../tasks/itask.hpp"       // ITask
+// Default tasks
 #include "../tasks/print_msg.hpp"   // PrintMsg
 
 
@@ -26,7 +29,6 @@
 //----------------------------------------------------------------------------//
 
 template <
-	typename Task,
 	typename Key,
 	typename Args
 	>
@@ -76,6 +78,7 @@ public:
 private:
     std::priority_queue<ITask> m_tasks;
     time_t m_initialTime;
+    
     Creator<ITask, Key, Args>* m_creator;
 };
 
@@ -84,8 +87,8 @@ private:
 //----------------------------------------------------------------------------//
 //	Scheduler Definitions
 //----------------------------------------------------------------------------//
-template <typename Task, typename Key, typename Args>
-Scheduler<Task, Key, Args>::Scheduler(): 
+template <typename Key, typename Args>
+Scheduler<Key, Args>::Scheduler(): 
     m_initialTime(0)
 {
     // Create and Initiate the creator. Adding basic tasks to the scheduler
@@ -95,8 +98,8 @@ Scheduler<Task, Key, Args>::Scheduler():
     m_creator->ProvideTaskType(ITask::PRINT_MSG, PrintMsg::CreateInst);
 }
 
-template <typename Task, typename Key, typename Args>
-Scheduler<Task, Key, Args>::~Scheduler()
+template <typename Key, typename Args>
+Scheduler<Key, Args>::~Scheduler()
 {
     // Clear all tasks from m_tasks pqueue
     // Clear();
