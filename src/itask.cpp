@@ -10,13 +10,14 @@
 //----------------------------------------------------------------------------//
 
 
-
 #include "itask.hpp"    // ITask
+
 
 //
 // Special Members Constructors
 //----------------------------------------------------------------------------//
 ITask::~ITask() = default;
+
 
 
 // Main Functionality
@@ -28,3 +29,24 @@ ITask::ITask(const Param& param_):
 {
     m_id = Uid();
 }
+
+
+Uid ITask::GetID()
+{
+    return m_id;
+}
+
+void ITask::SetInterval(time_t interval_)
+{
+    m_interval = interval_;
+}
+
+
+//
+// Friendly Non-Member Functions
+//----------------------------------------------------------------------------//
+bool operator<(const ITask& lhs_, const ITask& rhs_)
+{
+    return lhs_.m_interval < rhs_.m_interval;
+}
+
