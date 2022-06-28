@@ -76,7 +76,7 @@ public:
     
 
 private:
-    std::priority_queue<ITask> m_tasks;
+    std::priority_queue<std::shared_ptr<ITask>> m_tasks;
     time_t m_initialTime;
     
     Creator<ITask, Key, Args>* m_creator;
@@ -115,8 +115,10 @@ Uid Scheduler<Key, Args>::ScheduleTask(Key taskName_, Args args_, time_t interva
     // Create instant of a task
     std::shared_ptr<ITask> task = m_creator->CreateTaskInst(taskName_, args_);
 
+    task->SetInterval(interval_);
+
     // TODO: Add task to the container
-    // m_tasks.push(task);
+    m_tasks.push(task);
 
     return task->GetID();
 }
