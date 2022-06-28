@@ -12,20 +12,23 @@
 #ifndef ITASK_HPP
 #define ITASK_HPP
 
+#include <iostream>     //
 #include <memory>       // std::shared_ptr
 #include <ctime>        // time_t
+#include <string>       // std::string
 
 #include "uid.hpp"      // Uid
 
 
+class ITask;
 //
 // Non-member Functions
-// bool operator<(const ITask& lhs_, const ITask& rhs_);
+bool operator<(const ITask& lhs_, const ITask& rhs_);
 
 
 struct Param
 {
-    int m_a;
+    std::string m_taskName;
 };
 
 //----------------------------------------------------------------------------//
@@ -52,6 +55,8 @@ public:
     ITask(const ITask &other_) = default;
 	ITask &operator=(const ITask &other_) = default; 
 
+    Uid GetID();
+    void SetInterval(time_t interval_);
 
 private:
     Param m_param;   // TODO: should move to protected access specifier
@@ -66,12 +71,11 @@ private:
 
     // TODO: Upgrade and assign tasks to waitable queue
 	// DESCRIPTION  operator< defined as a friend for symmetric purposes.
-    // friend bool operator<(const ITask& lhs_, const ITask& rhs_);
+    friend bool operator<(const ITask& lhs_, const ITask& rhs_);
     
     // TODO: Upgrade to multi-threaded environment using a TaskPool(Thread Pool)
     // friend TasksPool;
 };
-
 
 
 
