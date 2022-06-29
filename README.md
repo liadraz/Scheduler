@@ -1,58 +1,58 @@
 # Simple Scheduler
---------------------------------------------------------------------------------
 
-AUTHOR      Liad Raz
-LANGUAGES   C++ 11
-Linux Only
-
->>> Description
-    A program that executes several operations (tasks) at predetermined time intervals.
-
-        Scheduler runs on as a single process.
-        Each task has an interval time which determines when the task will be executed.
-        Tasks returns to the Scheduler unless the user asked to remove it from the queue.
-        Tasks can be added only when the scheduler is not Running.
-        Each task has a unique ID.
-        Tasks can remove themselves or other tasks.
-        Stopping the Scheduler only by calling Stop or terminating the process.
-
-        - Why you used the technologies I used
-        C++
-
-        - Challenges and Features I wish to implement in the future.
-        C++, Interface Design, OOP, Design patterns, MultyThreaded environment, 
-        High-Quality Code.
+A program that executes several operations (tasks) at predetermined time intervals.
 
 
->>> How To Install and Run the Project
-        make scheduler
+
+## Usage
+TODO
+{
+Tasks returns to the Scheduler unless the user asked to remove it from the queue.
+Each task has an interval time which determines when the task will be executed.
+Tasks can be added only when the scheduler is not Running.
+Each task has a unique ID.
+Tasks can remove themselves or other tasks.
+Scheduler supports several main functions to the user.
+Stopping the Scheduler only by calling Stop or terminating the process.
+}
+
+### How to add a task to the scheduler
+    TODO
+
+### Challenges and Features I wish to implement in the future
+* Work in a multithreaded environment - each task will be executed in a thread
+* Adding a task on run-time
 
 
->>> How To Use The Project
+## Running the Example Code
+
+The repo comes with `run_sched.cpp` that runs the Scheduler
+with a basic Print Massage task.
+Tp try out the example code, run `make` and then run the executable.
+
+```bash
+    make
+    ./run_sched.out
+```
+
+## Tests
+To perform tests you can run scripts in test/ directory.
+Each test unit consists a copy compile line which produces an executable.
 
 
->>> License
+## Git Commits Style Guide
 
+    <type>[optional scope]: <description>
+    [optional body]
+    [optional footer(s)]
 
->>> Tests / How To Run Them
+### Types
 
+* api: creation and design of api
+* code: Regular code maintenance.
+* docs: Everything related to documentation
+* test: Everything related to testing
+* fix: A bug fix
+* refactor: Refactoring a specific section of the codebase
+* feat: The new feature you're adding to a particular application
 
->>> GitHub, Commits Style Guide
-
-        <type>[optional scope]: <description>
-
-        [optional body]
-
-        [optional footer(s)]
-
-    feat: The new feature you're adding to a particular application
-    fix: A bug fix
-    style: Feature and updates related to styling
-    refactor: Refactoring a specific section of the codebase
-    test: Everything related to testing
-    docs: Everything related to documentation
-    chore: Regular code maintenance.[ You can also use emojis to represent commit types]
-    api: creation and design of api
-
->>> Connect with me
-    
