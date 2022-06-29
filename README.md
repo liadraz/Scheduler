@@ -2,8 +2,6 @@
 
 A program that executes several operations (tasks) at predetermined time intervals.
 
-
-
 ## Usage
 TODO
 {
@@ -24,7 +22,7 @@ Stopping the Scheduler only by calling Stop or terminating the process.
 * Adding a task on run-time
 
 
-## Running the Example Code
+## Run The Example Code
 
 The repo comes with `run_sched.cpp` that runs the Scheduler
 with a basic Print Massage task.
@@ -34,6 +32,7 @@ Tp try out the example code, run `make` and then run the executable.
     make
     ./run_sched.out
 ```
+
 
 ## Tests
 To perform tests you can run scripts in test/ directory.
