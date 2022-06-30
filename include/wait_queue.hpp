@@ -45,8 +45,8 @@ public:
 
 	bool IsEmpty() const;
 
-	std::priority_queue<T, Container, Compare> m_pqueue;
 private:
+	std::priority_queue<T, Container, Compare> m_pqueue;
 };
 
 
@@ -54,9 +54,10 @@ private:
 //	WaitQueue Class Definitions
 //----------------------------------------------------------------------------//
 template <typename T, typename Container, typename Compare>
-WaitQueue<T, Container, Compare>::WaitQueue(const Compare &compare_) :
-	m_pqueue(compare_)
-{}
+WaitQueue<T, Container, Compare>::WaitQueue(const Compare &compare_)
+{
+	std::priority_queue<T, Container, Compare> m_pqueue;
+}
 
 
 template <typename T, typename Container, typename Compare>
