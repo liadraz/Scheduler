@@ -31,9 +31,15 @@ ITask::ITask(const Param& param_):
 }
 
 
-Uid ITask::GetID()
+Uid ITask::GetID() const
 {
     return m_id;
+}
+
+
+time_t ITask::GetInterval() const
+{
+    return m_interval;
 }
 
 void ITask::SetInterval(time_t interval_)
@@ -47,6 +53,7 @@ void ITask::SetInterval(time_t interval_)
 //----------------------------------------------------------------------------//
 bool operator<(const ITask& lhs_, const ITask& rhs_)
 {
+    std::cout << "ITask operator()" << std::endl;
     return lhs_.m_interval < rhs_.m_interval;
 }
 
