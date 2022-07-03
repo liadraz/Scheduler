@@ -12,7 +12,6 @@
 #ifndef ITASK_HPP
 #define ITASK_HPP
 
-#include <iostream>     //
 #include <memory>       // std::shared_ptr
 #include <ctime>        // time_t
 #include <string>       // std::string
@@ -55,7 +54,9 @@ public:
     ITask(const ITask &other_) = default;
 	ITask &operator=(const ITask &other_) = default; 
 
-    Uid GetID();
+    Uid GetID() const;
+    
+    time_t GetInterval() const;
     void SetInterval(time_t interval_);
 
 private:
