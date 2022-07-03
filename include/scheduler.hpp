@@ -15,9 +15,11 @@
 #include <memory>                   // std::shared_ptr
 #include <queue>  		            // std::priority_queue
 #include <ctime>  		            // time_t
+#include <vector>  		            // vector
 
 #include "tasks_creator.hpp"  	    // Creator
 #include "uid.hpp"  	            // Uid
+#include "compare.hpp"  		    // Compare
 
 // ITask is generic abstract class
 #include "../tasks/itask.hpp"       // ITask
@@ -76,7 +78,11 @@ public:
     
 
 private:
-    std::priority_queue<std::shared_ptr<ITask>> m_tasks;
+    std::priority_queue<
+        std::shared_ptr<ITask>, 
+        std::vector<std::shared_ptr<ITask>>,
+        Compare>    // compare between the values of the shared pointer => ITask1 < ITask2
+        m_tasks;
     time_t m_initialTime;
     
     Creator<ITask, Key, Args>* m_creator;
@@ -117,7 +123,7 @@ Uid Scheduler<Key, Args>::ScheduleTask(Key taskName_, Args args_, time_t interva
 
     task->SetInterval(interval_);
 
-    // TODO: Add task to the container
+    // Add task to the container
     m_tasks.push(task);
 
     return task->GetID();
