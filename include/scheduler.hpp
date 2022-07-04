@@ -71,7 +71,7 @@ public:
     size_t Size();
 
     // DESCRIPTION Checks if any tasks exists in scheduler 
-    // bool IsEmpty();
+    bool IsEmpty();
 
     // DESCRIPTION Delete all tasks in the scheduler
     // void Clear();
@@ -137,6 +137,13 @@ template <typename Key, typename Args>
 size_t Scheduler<Key, Args>::Size()
 {
     return m_tasks.size();
+}
+
+
+template <typename Key, typename Args>
+bool Scheduler<Key, Args>::IsEmpty()
+{
+    return m_tasks.empty();
 }
 
 
