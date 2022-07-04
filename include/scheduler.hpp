@@ -68,7 +68,7 @@ public:
     // Extra functionality
 
     // DESCRIPTION Obtain how many tasks currently exists in the scheduler.
-    // size_t Size();
+    size_t Size();
 
     // DESCRIPTION Checks if any tasks exists in scheduler 
     // bool IsEmpty();
@@ -81,7 +81,7 @@ private:
     std::priority_queue<
         std::shared_ptr<ITask>, 
         std::vector<std::shared_ptr<ITask>>,
-        Compare>    // compare between the values of the shared pointer => ITask1 < ITask2
+        Compare>    // compare between the interval values of => ITask1 < ITask2
         m_tasks;
     time_t m_initialTime;
     
@@ -129,6 +129,15 @@ Uid Scheduler<Key, Args>::ScheduleTask(Key taskName_, Args args_, time_t interva
     return task->GetID();
 }
 
+
+
+// Extra Functionality
+//----------------------------------------------------------------------------//
+template <typename Key, typename Args>
+size_t Scheduler<Key, Args>::Size()
+{
+    return m_tasks.size();
+}
 
 
 
