@@ -74,7 +74,7 @@ public:
     bool IsEmpty();
 
     // DESCRIPTION Delete all tasks in the scheduler
-    // void Clear();
+    void Clear();
     
 
 private:
@@ -144,6 +144,15 @@ template <typename Key, typename Args>
 bool Scheduler<Key, Args>::IsEmpty()
 {
     return m_tasks.empty();
+}
+
+template <typename Key, typename Args>
+void Scheduler<Key, Args>::Clear()
+{
+    while (!m_tasks.empty())
+    {
+        m_tasks.pop();
+    }
 }
 
 
